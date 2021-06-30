@@ -1,4 +1,5 @@
-
+sudo amazon-linux-extras install docker
+sudo service docker start
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
@@ -29,7 +30,6 @@ sudo yum install -y kubelet kubeadm kubectl --disableexcludes=kubernetes
 sudo systemctl enable --now kubelet
 sudo kubeadm init --pod-network-cidr=10.244.0.0/16
 
-export KUBECONFIG=/etc/kubernetes/admin.conf
 
 mkdir -p /home/ec2-user/.kube
 sudo cp -i /etc/kubernetes/admin.conf /home/ec2-user/.kube/config
