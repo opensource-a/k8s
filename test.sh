@@ -47,4 +47,6 @@ kubectl get pods -n kube-system
 kubectl apply -f deploy-dashboard.yaml
 NodePort=$(kubectl get svc kubernetes-dashboard --namespace kubernetes-dashboard -o=jsonpath='{.spec.ports[?(@.port==443)].nodePort}')
 NodeIP=$(kubectl get node -o=jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}')
+kubectl apply -f admin-user.yaml
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin | awk '{print $1}') --output json
 echo $NodeIP:$NodePort
