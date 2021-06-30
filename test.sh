@@ -1,5 +1,4 @@
-sudo amazon-linux-extras install -y docker
-sudo service docker start
+
 
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
