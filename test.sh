@@ -45,4 +45,6 @@ kubectl get namespace
 kubectl get pods -n kube-system
 
 kubectl apply -f deploy-dashboard.yaml
-
+NodePort=$(kubectl get svc kubernetes-dashboard --namespace kubernetes-dashboard -o=jsonpath='{.spec.ports[?(@.port==443)].nodePort}')
+NodeIP=$(kubectl get node -o=jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}')
+echo $NodeIP:$NodePort
