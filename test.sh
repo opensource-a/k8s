@@ -43,3 +43,6 @@ kubeadm token list
 
 kubectl get namespace
 kubectl get pods -n kube-system
+
+kubectl apply -f deploy-dashboard.yaml
+
