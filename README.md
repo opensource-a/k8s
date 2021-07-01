@@ -1,5 +1,5 @@
 # k8s
 
 ```
-kubectl apply -f https://raw.githubusercontent.com/coreos/flannel/master/Documentation/kube-flannel.yml
+kubeadm token create 123456.1234567890123456
 ```
