@@ -15,7 +15,7 @@ EOF
 
 sudo sysctl --system
 OS=xUbuntu_20.04
-VERSION=1.20
+VERSION=1.21
 cat <<EOF | sudo tee /etc/apt/sources.list.d/devel:kubic:libcontainers:stable.list
 deb https://download.opensuse.org/repositories/devel:/kubic:/libcontainers:/stable/$OS/ /
 EOF
@@ -38,7 +38,7 @@ conmon_cgroup = "pod"
 cgroup_manager = "cgroupfs"
 EOF
 
-cat/etc/crio/crio.conf.d/02-cgroup-manager.conf
+
 cat /etc/crio/crio.conf.d/02-cgroup-manager.conf
 cat <<EOF | sudo tee /etc/modules-load.d/k8s.conf
 br_netfilter
