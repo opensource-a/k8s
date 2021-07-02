@@ -1,3 +1,5 @@
+dockerusername=<username>
+dockerpassword=<password>
 sudo yum install -y docker
 sudo service docker start
 sudo systemctl enable docker.service
@@ -45,12 +47,19 @@ kubeadm token list
 kubectl get namespace
 kubectl get pods -n kube-system
 
+
+kubectl create namespace kubernetes-dashboard
+
+kubectl create secret docker-registry regcred --namespace kubernetes-dashboard --docker-server=docker.io --docker-username=$dockerusername --docker-password=$dockerpassword 
+
+kubectl label nodes $(kubectl get nodes -o jsonpath='{.items[*].metadata.name}') supermaster=yes
+
 kubectl apply -f deploy-dashboard.yaml
 NodePort=$(kubectl get svc kubernetes-dashboard --namespace kubernetes-dashboard -o=jsonpath='{.spec.ports[?(@.port==443)].nodePort}')
-NodeIP=$(kubectl get node -o=jsonpath='{.items[*].status.addresses[?(@.type=="InternalIP")].address}')
+NodeIP=$(kubectl get node -o=jsonpath='{.items[?(@.metadata.labels.supermaster=="yes")].status.addresses[?(@.type=="InternalIP")].address}')
 kubectl apply -f admin-user.yaml
 
 echo https://$NodeIP:$NodePort
 
-kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin | awk '{print $1}') | grep token:
+kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep clusteradmin | awk '{print $1}') | grep token:
 
