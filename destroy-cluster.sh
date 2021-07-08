@@ -14,8 +14,6 @@ sudo rm -rf /etc/cni
 
 sudo rm -rf /var/lib/etcd
 
-#sudo systemctl start docker && 
-
-sudo dockerd &> dockerd-logfile &
+sudo systemctl start docker 
 
 sudo systemctl start kubelet
